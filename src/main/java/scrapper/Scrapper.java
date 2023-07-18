@@ -210,6 +210,36 @@ public abstract class Scrapper {
 		}
 
 	}
+	
+	public void processRequestNew(List<HttpRequest> pagesToBeRead, List<HttpClient> httpClients) {
+
+		if (!pagesToBeRead.isEmpty() && !httpClients.isEmpty()) {
+
+			HttpRequest httpRequest = pagesToBeRead.remove(0);
+
+			HttpClient client = httpClients.remove(0);
+
+//			HttpRequest httpRequest = httpClientRequestBuilder.buildRequest(uriPreparator.buildURI(request));
+
+			if (httpRequest != null) {
+
+				client.sendAsync(httpRequest, BodyHandlers.ofInputStream()).thenAcceptAsync(response -> {
+
+					inputStreamWriterToFileSystem(response.body(),
+							inputStreamDecoder.determineContentEncoding(response.headers()),
+							httpRequest.uri().toString());
+					
+					parseHtmlInFileSystem();
+
+				});
+
+			}
+
+			httpClients.add(client);
+
+		}
+
+	}
 
 	public void processRequest(List<HttpRequest> pagesToBeRead, List<HttpClient> connectionSettings) {
 
@@ -226,16 +256,15 @@ public abstract class Scrapper {
 				Thread.sleep(random.nextInt(getDelayInMs()) + getDelayInMs());
 
 				HttpResponse<InputStream> response = client.send(request, BodyHandlers.ofInputStream());
-
-				if (response.statusCode() == 200) {
 					
 					System.out.println(response.statusCode());
 					
 					inputStreamWriterToFileSystem(response.body(),
 							inputStreamDecoder.determineContentEncoding(response.headers()),
 							response.uri().toString());
+					
+					parseHtmlInFileSystem();
 
-				}
 
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -256,6 +285,7 @@ public abstract class Scrapper {
 		String content = "";
 
 		try {
+			
 			GZIPInputStream gzipStream = new GZIPInputStream(inputStream);
 
 			Reader reader = new InputStreamReader(gzipStream);
@@ -319,7 +349,7 @@ public abstract class Scrapper {
 			while (isPause() == true) {
 
 				try {
-					Thread.sleep(500);
+					Thread.sleep(getDelayInMs());
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -341,8 +371,6 @@ public abstract class Scrapper {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			parseHtmlInFileSystem();
 
 		}
 
