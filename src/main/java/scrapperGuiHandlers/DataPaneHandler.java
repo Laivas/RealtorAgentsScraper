@@ -26,33 +26,41 @@ public class DataPaneHandler implements EventHandler<ActionEvent> {
 		dataPaneSelection = new DataPaneSelection();
 
 		XmlReaderWriter xmlReaderWriter = new XmlReaderWriter();
-		
-		if(xmlReaderWriter.fromXml(dataPaneSelection, "dataPaneSelection.xml") != null) {
 
-		dataPaneSelection = xmlReaderWriter.fromXml(dataPaneSelection, "dataPaneSelection.xml");
+		if (xmlReaderWriter.fromXml(dataPaneSelection, "dataPaneSelection.xml") != null) {
 
-		dataPane.getCsvFileNameField().setText(dataPaneSelection.getCsvFileName());
+			dataPaneSelection = xmlReaderWriter.fromXml(dataPaneSelection, "dataPaneSelection.xml");
 
-		dataPane.getWriteToCsvField().setText(dataPaneSelection.getCsvFolderDir());
+			dataPane.getCsvFileNameField().setText(dataPaneSelection.getCsvFileName());
 
-		dataPane.getGenerateCsvFileNameCheckbox().setSelected(dataPaneSelection.isGenerateCsvFileName());
+			dataPane.getWriteToCsvField().setText(dataPaneSelection.getCsvFolderDir());
 
-		dataPane.getGenerateSqlDbFileNameCheckbox().setSelected(dataPaneSelection.isGenerateSqliteDbFileName());
+			dataPane.getGenerateCsvFileNameCheckbox().setSelected(dataPaneSelection.isGenerateCsvFileName());
 
-		dataPane.getCsvFilesRadioButton().setSelected(dataPaneSelection.isSaveCsv());
+			dataPane.getGenerateSqlDbFileNameCheckbox().setSelected(dataPaneSelection.isGenerateSqliteDbFileName());
 
-		dataPane.getSqLiteRadioButton().setSelected(dataPaneSelection.isSaveSqliteDb());
+			dataPane.getCsvFilesRadioButton().setSelected(dataPaneSelection.isSaveCsv());
 
-		dataPane.getSqliteDatabaseNameField().setText(dataPaneSelection.getSqliteDbFileName());
+			dataPane.getSqLiteRadioButton().setSelected(dataPaneSelection.isSaveSqliteDb());
 
-		dataPane.getSqliteDatabaseLocationField().setText(dataPaneSelection.getSqliteFolderDir());
+			dataPane.getSqliteDatabaseNameField().setText(dataPaneSelection.getSqliteDbFileName());
 
-		uiSelectionSwitcher();
-		
+			dataPane.getSqliteDatabaseLocationField().setText(dataPaneSelection.getSqliteFolderDir());
+			
+			
+			dataPane.getJsonFileNameField().setText(dataPaneSelection.getJsonFileName());
+
+			dataPane.getWriteToJsonField().setText(dataPaneSelection.getJsonFolderDir());
+
+			dataPane.getGenerateJsonFileNameCheckbox().setSelected(dataPaneSelection.isGenerateJsonFileName());
+			
+			dataPane.getJsonFileRadioButton().setSelected(dataPaneSelection.isSaveJson());
+
+			uiSelectionSwitcher();
+
 		}
 
 	}
-
 
 	@Override
 	public void handle(ActionEvent event) {
@@ -71,9 +79,17 @@ public class DataPaneHandler implements EventHandler<ActionEvent> {
 			uiSelectionSwitcher();
 
 		}
+		
+		if (event.getSource() == dataPane.getJsonFileRadioButton()
+				|| event.getSource() == dataPane.getGenerateJsonFileNameCheckbox()) {
+			
+			uiSelectionSwitcher();
+			
+		}
 
 		if (event.getSource() == dataPane.getWriteToCsvButton()
-				|| event.getSource() == dataPane.getSqliteDatabaseLocationButton()) {
+				|| event.getSource() == dataPane.getSqliteDatabaseLocationButton()
+				|| event.getSource() == dataPane.getWriteToJsonButton()) {
 
 			DirectoryChooser directoryChooser = new DirectoryChooser();
 
@@ -93,6 +109,12 @@ public class DataPaneHandler implements EventHandler<ActionEvent> {
 
 					dataPane.getSqliteDatabaseLocationField().setText(file.getAbsolutePath());
 
+				}
+				
+				if (event.getSource() == dataPane.getWriteToJsonButton()) {
+					
+					dataPane.getWriteToJsonField().setText(file.getAbsolutePath());
+					
 				}
 
 			}
@@ -120,13 +142,23 @@ public class DataPaneHandler implements EventHandler<ActionEvent> {
 			dataPaneSelection.setSqliteDbFileName(dataPane.getSqliteDatabaseNameField().getText());
 
 			dataPaneSelection.setSqliteFolderDir(dataPane.getSqliteDatabaseLocationField().getText());
+			
+			
+			dataPaneSelection.setSaveJson(dataPane.getJsonFileRadioButton().isSelected());
+			
+			dataPaneSelection.setJsonFileName(dataPane.getJsonFileNameField().getText());
+
+			dataPaneSelection.setJsonFolderDir(dataPane.getWriteToJsonField().getText());
+
+			dataPaneSelection.setGenerateJsonFileName(dataPane.getGenerateJsonFileNameCheckbox().isSelected());
+			
 
 			xmlReaderWriter.toXml(dataPaneSelection, "dataPaneSelection.xml");
 
 		}
 
 	}
-	
+
 	public void uiSelectionSwitcher() {
 
 		if (dataPane.getCsvFilesRadioButton().isSelected()) {
@@ -136,6 +168,14 @@ public class DataPaneHandler implements EventHandler<ActionEvent> {
 			dataPane.getSqliteDatabaseNameField().setDisable(true);
 
 			dataPane.getGenerateSqlDbFileNameCheckbox().setDisable(true);
+			
+			
+			dataPane.getWriteToJsonButton().setDisable(true);
+			
+			dataPane.getJsonFileNameField().setDisable(true);
+			
+			dataPane.getGenerateJsonFileNameCheckbox().setDisable(true);
+			
 
 			dataPane.getWriteToCsvButton().setDisable(false);
 
@@ -162,6 +202,14 @@ public class DataPaneHandler implements EventHandler<ActionEvent> {
 			dataPane.getWriteToCsvField().setDisable(true);
 
 			dataPane.getCsvFileNameField().setDisable(true);
+			
+			
+			dataPane.getWriteToJsonButton().setDisable(true);
+			
+			dataPane.getJsonFileNameField().setDisable(true);
+			
+			dataPane.getGenerateJsonFileNameCheckbox().setDisable(true);
+			
 
 			dataPane.getGenerateCsvFileNameCheckbox().setDisable(true);
 
@@ -176,7 +224,40 @@ public class DataPaneHandler implements EventHandler<ActionEvent> {
 				dataPane.getSqliteDatabaseNameField().setDisable(false);
 
 			}
+			
+		}
+		
+		if (dataPane.getJsonFileRadioButton().isSelected()) {
 
+			dataPane.getSqliteDatabaseLocationButton().setDisable(true);
+
+			dataPane.getSqliteDatabaseNameField().setDisable(true);
+
+			dataPane.getGenerateSqlDbFileNameCheckbox().setDisable(true);
+			
+			
+			dataPane.getWriteToJsonButton().setDisable(false);
+			
+			dataPane.getJsonFileNameField().setDisable(false);
+			
+			dataPane.getGenerateJsonFileNameCheckbox().setDisable(false);
+			
+
+			dataPane.getWriteToCsvButton().setDisable(true);
+
+			dataPane.getGenerateCsvFileNameCheckbox().setDisable(true);
+
+			if (dataPane.getGenerateJsonFileNameCheckbox().isSelected()) {
+
+				dataPane.getJsonFileNameField().setDisable(true);
+
+			} else {
+
+				dataPane.getJsonFileNameField().setDisable(false);
+
+			}
+
+			
 		}
 
 	}

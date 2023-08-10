@@ -15,6 +15,7 @@ import scrapperModel.DataPaneSelection;
 import scrapperModel.SettingsPaneSelection;
 import scrapperUtil.CsvReaderWriter;
 import scrapperUtil.FileNameGenerator;
+import scrapperUtil.ObjectToJsonWriter;
 import scrapperUtil.XmlReaderWriter;
 
 public class RealtorAgentsMainPaneHandler implements EventHandler<ActionEvent> {
@@ -245,7 +246,36 @@ public class RealtorAgentsMainPaneHandler implements EventHandler<ActionEvent> {
 			}
 
 		}
-		if (dataPaneSelection.isSaveSqliteDb() == false && dataPaneSelection.isSaveCsv() == false) {
+		
+		
+		if (dataPaneSelection.isSaveJson()) {
+
+			if (dataPaneSelection.isGenerateJsonFileName()) {
+
+				FileNameGenerator fileNameGenerator = new FileNameGenerator();
+				
+				realtorScrapper.setObjectToJsonWriter(new ObjectToJsonWriter());
+
+				realtorScrapper.setWriteToPath(Paths.get(dataPaneSelection.getCsvFolderDir() + File.separator
+						+ fileNameGenerator.generateDateFileName() + ".json"));
+
+			}
+
+			if (dataPaneSelection.isGenerateJsonFileName() == false && dataPaneSelection.getJsonFileName() != null
+					&& !dataPaneSelection.getJsonFileName().isEmpty()) {
+
+				realtorScrapper.setObjectToJsonWriter(new ObjectToJsonWriter());
+				
+				realtorScrapper.setWriteToPath(Paths.get(dataPaneSelection.getJsonFolderDir() + File.separator
+						+ dataPaneSelection.getJsonFileName() + ".json"));
+
+			}
+		}
+		
+
+		
+		
+		if (dataPaneSelection.isSaveSqliteDb() == false && dataPaneSelection.isSaveCsv() == false && dataPaneSelection.isSaveJson() == false) {
 
 			FileNameGenerator fileNameGenerator = new FileNameGenerator();
 

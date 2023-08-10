@@ -1,31 +1,33 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>RealtorAgentsScrapper</groupId>
-  <artifactId>RealtorAgentsScrapper</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>RealtorAgentsScrapper</groupId>
+	<artifactId>RealtorAgentsScrapper</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
 	<build>
 		<plugins>
-<!--			<plugin>
+			<!--			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<configuration>
+			<configuration>
 					<archive>
 						<manifest>
-							<mainClass>scrapperGui.Application</mainClass>
+			<mainClass>scrapperGui.Application</mainClass>
 						</manifest>
-					</archive>
+			</archive>
 					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
+			<descriptorRef>jar-with-dependencies</descriptorRef>
+			</descriptorRefs>
 				</configuration>
 				<executions>
-					<execution>
+			<execution>
 						<id>make-assembly</id>
 						<phase>package</phase>
-						<goals>
+			<goals>
 							<goal>single</goal>
 						</goals>
 					</execution>
-				</executions>
+			</executions>
 			</plugin>-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -41,8 +43,10 @@
 							<outputFile>${project.artifactId}.jar</outputFile>
 							<shadedArtifactAttached>true</shadedArtifactAttached>
 							<transformers>
-								<transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
-								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<mainClass>scrapperGui.Application</mainClass>
 								</transformer>
 							</transformers>
@@ -62,49 +66,50 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
-		<!-- https://mvnrepository.com/artifact/com.machinepublishers/jbrowserdriver -->
+		<!--
+		https://mvnrepository.com/artifact/com.machinepublishers/jbrowserdriver -->
 		<!--		<dependency>
 			<groupId>com.machinepublishers</groupId>
-			<artifactId>jbrowserdriver</artifactId>
+		<artifactId>jbrowserdriver</artifactId>
 			<version>1.1.1</version>
 		</dependency>-->
-<!--		<dependency>
+		<!--		<dependency>
 			<groupId>org.openpnp</groupId>
-			<artifactId>opencv</artifactId>
+		<artifactId>opencv</artifactId>
 			<version>4.5.1-2</version>
 		</dependency>-->
 		<!--		<dependency>
 			<groupId>org.openpnp</groupId>
-			<artifactId>opencv</artifactId>
+		<artifactId>opencv</artifactId>
 			<version>3.2.0-0</version>
 		</dependency>
 		<dependency>
 			<groupId>nu.pattern</groupId>
-			<artifactId>opencv</artifactId>
+		<artifactId>opencv</artifactId>
 			<version>2.4.9-4</version>
 		</dependency>-->
 		<!-- https://mvnrepository.com/artifact/org.openjdk.nashorn/nashorn-core -->
 		<!--		<dependency>
 			<groupId>org.openjdk.nashorn</groupId>
-			<artifactId>nashorn-core</artifactId>
+		<artifactId>nashorn-core</artifactId>
 			<version>15.4</version>
 		</dependency>-->
 		<!-- https://mvnrepository.com/artifact/com.zsoltfabok/sqlite-dialect -->
 		<!--		<dependency>
 			<groupId>com.zsoltfabok</groupId>
-			<artifactId>sqlite-dialect</artifactId>
+		<artifactId>sqlite-dialect</artifactId>
 			<version>1.0</version>
 		</dependency>-->
 		<!-- https://mvnrepository.com/artifact/org.python/jython -->
 		<!--		<dependency>
 			<groupId>org.python</groupId>
-			<artifactId>jython</artifactId>
+		<artifactId>jython</artifactId>
 			<version>2.7.3</version>
 		</dependency>-->
 		<!-- https://mvnrepository.com/artifact/org.python/jython-standalone -->
 		<!--		<dependency>
 			<groupId>org.python</groupId>
-			<artifactId>jython-standalone</artifactId>
+		<artifactId>jython-standalone</artifactId>
 			<version>2.7.3</version>
 		</dependency>-->
 		<!-- https://mvnrepository.com/artifact/com.github.gwenn/sqlite-dialect -->
@@ -140,10 +145,11 @@
 		<!-- https://mvnrepository.com/artifact/org.jfxtras/jfxtras-controls -->
 		<!--		<dependency>
 			<groupId>org.jfxtras</groupId>
-			<artifactId>jfxtras-controls</artifactId>
+		<artifactId>jfxtras-controls</artifactId>
 			<version>17-r1</version>
 		</dependency>-->
-		<!-- https://mvnrepository.com/artifact/org.kordamp.ikonli/ikonli-fontawesome5-pack -->
+		<!--
+		https://mvnrepository.com/artifact/org.kordamp.ikonli/ikonli-fontawesome5-pack -->
 		<dependency>
 			<groupId>org.kordamp.ikonli</groupId>
 			<artifactId>ikonli-fontawesome5-pack</artifactId>
@@ -178,27 +184,28 @@
 			<version>1.72.0</version>
 			<type>pom</type>
 		</dependency>
-<!--		<dependency>
+		<!--		<dependency>
 			<groupId>com.jfoenix</groupId>
-			<artifactId>jfoenix</artifactId>
+		<artifactId>jfoenix</artifactId>
 			<version>9.0.10</version>
 		</dependency>-->
-		<!-- https://mvnrepository.com/artifact/org.kordamp.bootstrapfx/bootstrapfx-core -->
+		<!--
+		https://mvnrepository.com/artifact/org.kordamp.bootstrapfx/bootstrapfx-core -->
 		<dependency>
 			<groupId>org.kordamp.bootstrapfx</groupId>
 			<artifactId>bootstrapfx-core</artifactId>
 			<version>0.4.0</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-graphics -->
-<!--		<dependency>
+		<!--		<dependency>
 			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-graphics</artifactId>
+		<artifactId>javafx-graphics</artifactId>
 			<version>11.0.2</version>
 		</dependency>-->
 		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-fxml -->
 		<!--		<dependency>
 			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-fxml</artifactId>
+		<artifactId>javafx-fxml</artifactId>
 			<version>11.0.2</version>
 		</dependency>-->
 		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-base -->
@@ -237,7 +244,8 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>2.0.6</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api -->
+		<!--
+		https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api -->
 		<dependency>
 			<groupId>jakarta.xml.bind</groupId>
 			<artifactId>jakarta.xml.bind-api</artifactId>
@@ -255,10 +263,11 @@
 			<artifactId>quartz</artifactId>
 			<version>2.3.2</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.github.lgooddatepicker/LGoodDatePicker -->
+		<!--
+		https://mvnrepository.com/artifact/com.github.lgooddatepicker/LGoodDatePicker -->
 		<!--		<dependency>
 			<groupId>com.github.lgooddatepicker</groupId>
-			<artifactId>LGoodDatePicker</artifactId>
+		<artifactId>LGoodDatePicker</artifactId>
 			<version>11.2.1</version>
 		</dependency>-->
 		<dependency>
@@ -271,6 +280,11 @@
 			<groupId>com.opencsv</groupId>
 			<artifactId>opencsv</artifactId>
 			<version>5.7.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.5</version>
 		</dependency>
 	</dependencies>
 </project>

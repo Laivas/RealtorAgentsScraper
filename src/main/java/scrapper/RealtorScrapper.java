@@ -33,6 +33,7 @@ import scrapperUtil.ConnectionSettings;
 import scrapperUtil.CsvReaderWriter;
 import scrapperUtil.CustomHttpClient;
 import scrapperUtil.InputStreamDecoder;
+import scrapperUtil.ObjectToJsonWriter;
 
 @Setter
 @Getter
@@ -74,6 +75,8 @@ public class RealtorScrapper extends Scrapper {
 	private SqliteDatabaseConnection sqliteDatabaseConnection;
 
 	private CsvReaderWriter csvReaderWriter;
+	
+	private ObjectToJsonWriter objectToJsonWriter;
 
 	private List<String[]> proxies;
 
@@ -339,7 +342,7 @@ public class RealtorScrapper extends Scrapper {
 
 		}
 
-		if (sqliteDatabaseConnection == null) {
+		if (sqliteDatabaseConnection == null && objectToJsonWriter == null) {
 
 			for (RealtorAgentData realtorAgentData : agentsData) {
 
@@ -347,6 +350,16 @@ public class RealtorScrapper extends Scrapper {
 
 			}
 
+		}
+		
+		if (objectToJsonWriter != null) {
+			
+			for (RealtorAgentData realtorAgentData : agentsData) {
+				
+				objectToJsonWriter.writeRealtorAgentDataJsonFile(realtorAgentData, getWriteToPath());
+				
+			}
+			
 		}
 
 		agentsWritten += agentsData.size();
